@@ -14,22 +14,24 @@ import org.springframework.stereotype.Repository;
 @Entity
 @Table(name="Parent_Task")
 public class ParentTask {
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="Parent_Id")
-	private Long ParentId;
+	@Column(name="parent_id")
+	private Long parentId;
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
 
 	@Column (name = "Parent_Task")
 	private String parentTask;
 
 
-	public Long getParentId() {
-		return ParentId;
-	}
-
-	public void setParentId(Long parentId) {
-		ParentId = parentId;
-	}
+	
 	public String getParentTask() {
 		return parentTask;
 	}

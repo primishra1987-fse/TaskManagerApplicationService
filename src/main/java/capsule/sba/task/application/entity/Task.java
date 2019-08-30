@@ -5,22 +5,29 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @Repository
 @Entity
 @Table(name = "Task")
+
 public class Task {
 
 	@Id
@@ -28,15 +35,31 @@ public class Task {
 	@Column(name = "task_id")
 	private long taskID;
 
-	/*
-	 * @ManyToOne(cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name="ParentId")
-	 * 
-	 * private ParentTask ParentId;
-	 */
-	@Column(name = "parent_id")
-	private long parentId;
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "parentId", nullable = true)
+	@Nullable
+    private ParentTask parent;
+	 
+	
+	public ParentTask getParent() {
+		return parent;
+	}
+
+	public void setParent(ParentTask parent) {
+		this.parent = parent;
+	}
+@Transient
+
+	private Long parentalId;
+	
+
+	public Long getParentalId() {
+		return parentalId;
+	}
+
+	public void setParentalId(Long parentalId) {
+		this.parentalId = parentalId;
+	}
 
 	@Column(name = "task")
 	private String task1;
@@ -57,6 +80,15 @@ public class Task {
 	@Column(name = "status")
 	private Boolean isTaskEended;
 
+	
+	/*
+	 * private long parentid;
+	 * 
+	 * 
+	 * public long getParentid() { return parentid; }
+	 * 
+	 * public void setParentid(long parentid) { this.parentid = parentid; }
+	 */
 	public long getTaskID() {
 		return taskID;
 	}
@@ -65,14 +97,7 @@ public class Task {
 		this.taskID = taskID;
 	}
 
-	public long getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(long parentId) {
-		this.parentId = parentId;
-	}
-
+	
 	public String getTask1() {
 		return task1;
 	}
