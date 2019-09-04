@@ -5,16 +5,23 @@ import java.util.List;
 
 
 import capsule.sba.task.application.entity.Task;
+import capsule.sba.task.application.model.ModelTask;
 
 
 
 
 public interface TaskService {
-	public Task addTask(Task task);
+	//public ModelTask addTask(Task task);
 
-	public List<Task> getAllTasks();
+	public List<ModelTask> getAllTasks();
 
-	public Task updateTask(Task task, Long id);
+	public ModelTask updateTask(ModelTask task, Long id);
+	
+	public ModelTask endTask(ModelTask task);
 	
 	public void deleteTask(Long id);
+	
+	public ModelTask getTask(Long id);
+
+	public ModelTask addTask(ModelTask task);
 }

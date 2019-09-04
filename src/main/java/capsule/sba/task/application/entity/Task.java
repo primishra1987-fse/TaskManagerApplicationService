@@ -37,6 +37,7 @@ public class Task {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "parentId", nullable = true)
+	 @OnDelete(action = OnDeleteAction.CASCADE)
 	@Nullable
     private ParentTask parent;
 	 
@@ -48,18 +49,16 @@ public class Task {
 	public void setParent(ParentTask parent) {
 		this.parent = parent;
 	}
-@Transient
-
-	private Long parentalId;
-	
-
-	public Long getParentalId() {
-		return parentalId;
-	}
-
-	public void setParentalId(Long parentalId) {
-		this.parentalId = parentalId;
-	}
+	/*
+	 * @Transient
+	 * 
+	 * private Long parentalId;
+	 * 
+	 * 
+	 * public Long getParentalId() { return parentalId; }
+	 * 
+	 * public void setParentalId(Long parentalId) { this.parentalId = parentalId; }
+	 */
 
 	@Column(name = "task")
 	private String task1;
@@ -78,9 +77,18 @@ public class Task {
 	private int priority;
 
 	@Column(name = "status")
-	private Boolean isTaskEended;
+	private String status;
 
-	
+
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	/*
 	 * private long parentid;
 	 * 
@@ -130,17 +138,6 @@ public class Task {
 		this.priority = priority;
 	}
 
-	public Boolean getIsTaskEended() {
-		return isTaskEended;
-	}
-
-	public void setIsTaskEended(Boolean isTaskEended) {
-		/*
-		 * Date today = new Date();
-		 * 
-		 * if (today.after(this.endDate)) { isTaskEended = true; }
-		 */
-		this.isTaskEended = isTaskEended;
-	}
+	
 
 }
